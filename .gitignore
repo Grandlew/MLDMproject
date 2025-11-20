@@ -7,7 +7,7 @@
 runs/
 wandb/
 
-# Heavy data (keep only tiny sample in git)
+# Heavy data
 data/raw_*/
 data/**/RGB/
 data/**/GT_index/
