@@ -1,0 +1,21 @@
+﻿__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+runs/
+wandb/
+
+# Heavy data (keep only tiny sample in git)
+data/raw_*/
+data/**/RGB/
+data/**/GT_index/
+data/**/GT_color/
+data/*.zip
+*.tar
+*.tar.gz
+
+# OS/IDE
+.DS_Store
+.ipynb_checkpoints/
