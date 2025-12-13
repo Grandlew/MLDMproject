@@ -1,0 +1,5 @@
+﻿task: seg
+dataset: { name: freiburg, root: data/sample, img_size: 160, num_classes: 2 }
+train:   { epochs: 20, batch_size: 32, lr: 1e-3, weight_decay: 0.0, warmup_epochs: 0, amp: true }
+model:   { backbone: tinycnn }
+logging: { out_dir: runs_cnn, save_ckpt: true }

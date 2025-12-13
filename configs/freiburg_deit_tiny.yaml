@@ -1,0 +1,24 @@
+﻿task: seg
+dataset:
+  name: freiburg
+  root: data/sample
+  img_size: 160
+  num_classes: 2
+train:
+  epochs: 20
+  batch_size: 32
+  lr: 3e-4
+  weight_decay: 0.05
+  warmup_epochs: 2
+  amp: true
+model:
+  backbone: deit_tiny
+  embed_dim: 192
+  depth: 12
+  heads: 3
+  mlp_ratio: 4.0
+  patch: 16
+  stochastic_depth: 0.1
+logging:
+  out_dir: runs
+  save_ckpt: true

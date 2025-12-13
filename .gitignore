@@ -19,3 +19,6 @@ data/*.zip
 # OS/IDE
 .DS_Store
 .ipynb_checkpoints/
+
+runs_cnn/
+reports/*.pdf
