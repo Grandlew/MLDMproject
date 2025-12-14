@@ -22,5 +22,17 @@ python train.py --config configs/imagenette\_deit\_tiny.yaml --epochs 2 --amp --
 
 python eval.py --checkpoint runs/deit\_tiny.ckpt --amp
 
+### Deployment Results (Windows, ONNXRuntime CPU)
+- Model: DeiT-Tiny + segmentation head (img_size=160)
+- Source: logs/urban_run/timing.csv
+- Average FPS: **148.54**
+- p95 inference time: **6.96 ms**
+- Ground truth: not provided (mIoU n/a)
+
+Command used:
+.\.venv\Scripts\python.exe .\deploy\log_stream.py --model .\runs\deit_tiny.onnx --source .\samples\urban.mp4 --out_dir .\logs\urban_run
+.\.venv\Scripts\python.exe .\deploy\metrics_csv.py --log_dir .\logs\urban_run --csv_out .\reports\log_metrics.csv
+
+
 
 
