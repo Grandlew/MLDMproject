@@ -22,3 +22,5 @@ data/*.zip
 
 runs_cnn/
 reports/*.pdf
+
+logs/

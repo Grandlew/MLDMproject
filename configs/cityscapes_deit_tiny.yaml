@@ -1,0 +1,26 @@
+dataset:
+   root: "data/cityscapes_512x1024" # <-- produced by the prep script
+   img_size: 256 # we use 512x1024 (H x W). loader will square-pad/resize to (512,1024) via our prep script
+   num_classes: 19
+
+model:
+   # DeiT-Tiny backbone params (match your current ViT)
+   patch: 16
+   embed_dim: 192
+   depth: 12
+   heads: 3
+   mlp_ratio: 4.0
+   stochastic_depth: 0.1
+
+train:
+   epochs: 20
+   batch_size: 16
+   lr: 5.0e-4
+   weight_decay: 0.05
+   augment:
+      hflip: 0.5
+      color_jitter: 0.2
+      random_erasing: 0.0
+
+logging:
+   out_dir: "runs_city"
