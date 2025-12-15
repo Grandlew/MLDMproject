@@ -1,38 +1,39 @@
-\# Robot-Ready DeiT-Tiny — Intermediate Checkpoint
+@"
+# Robot-Ready DeiT-Tiny (Cityscapes) — Reproduction & Deployment 
 
+**Paper reproduced:** Data-Efficient Image Transformers (DeiT, ICML’21).  
+**Task:** Road-scene **semantic segmentation** on **Cityscapes** with a lightweight ViT (DeiT-Tiny) + deployable **ONNX**.  
+**Status:** Implementation complete; training/eval done; ONNX + demo overlay & metrics committed.
 
-
-\*\*Paper:\*\* Data-Efficient Image Transformers (DeiT).  
-
-\*\*Paper PDF (local path for reference):\*\* /mnt/data/2012.12877v2.pdf
-
-
-
-\## Quickstart (Windows PowerShell)
+## Quick Reproduce
 
 ```powershell
-
+# venv
 python -m venv .venv
-
-.\\.venv\\Scripts\\Activate.ps1
-
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+git lfs install
 
-python train.py --config configs/imagenette\_deit\_tiny.yaml --epochs 2 --amp --save\_dir runs/
+# prepare Cityscapes (put official zips under .\data\raw\ first)
+.\.venv\Scripts\python.exe .\scripts\prepare_cityscapes.py --out .\data\cityscapes_512x1024
 
-python eval.py --checkpoint runs/deit\_tiny.ckpt --amp
+# train (fast, 256px)
+.\.venv\Scripts\python.exe .\train.py --config .\configs\cityscapes_deit_tiny.yaml --amp
 
-### Deployment Results (Windows, ONNXRuntime CPU)
-- Model: DeiT-Tiny + segmentation head (img_size=160)
-- Source: logs/urban_run/timing.csv
-- Average FPS: **148.54**
-- p95 inference time: **6.96 ms**
-- Ground truth: not provided (mIoU n/a)
+# evaluate (overall + per-class)
+.\.venv\Scripts\python.exe .\eval.py --checkpoint .\runs_city\deit_tiny_best.ckpt --amp
+.\.venv\Scripts\python.exe .\eval.py --checkpoint .\runs_city\deit_tiny_best.ckpt --amp --per_class > .\reports\city_per_class.txt
 
-Command used:
-.\.venv\Scripts\python.exe .\deploy\log_stream.py --model .\runs\deit_tiny.onnx --source .\samples\urban.mp4 --out_dir .\logs\urban_run
-.\.venv\Scripts\python.exe .\deploy\metrics_csv.py --log_dir .\logs\urban_run --csv_out .\reports\log_metrics.csv
+# qualitative grid
+.\.venv\Scripts\python.exe -m scripts.vis_preds --ckpt .\runs_city\deit_tiny_best.ckpt --out .\reports\city_val_vis.jpg
 
+# export ONNX (dynamic shapes)
+.\.venv\Scripts\python.exe -m scripts.export_onnx --ckpt .\runs_city\deit_tiny_best.ckpt --out .\runs\deit_tiny_dynamic.onnx --img_size 256 --dynamic
+
+# runtime on sample video + CSV
+$log = ".\logs\urban_run_256"
+.\.venv\Scripts\python.exe .\deploy\log_stream.py --model .\runs\deit_tiny_dynamic.onnx --source .\samples\urban.mp4 --img_size 256 --out_dir $log --thr 0.5
+.\.venv\Scripts\python.exe .\deploy\metrics_csv.py --log_dir $log --csv_out .\reports\log_metrics_256.csv
 
 
 
