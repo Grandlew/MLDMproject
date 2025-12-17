@@ -14,7 +14,7 @@ python -m venv .venv
 pip install -r requirements.txt
 git lfs install
 
-# prepare Cityscapes (put official zips under .\data\raw\ first)
+# prepare Cityscapes
 .\.venv\Scripts\python.exe .\scripts\prepare_cityscapes.py --out .\data\cityscapes_512x1024
 
 # train (fast, 256px)
