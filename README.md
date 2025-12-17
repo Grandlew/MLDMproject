@@ -4,7 +4,7 @@
 **Paper reproduced:** Data-Efficient Image Transformers (DeiT, ICML’21).  
 **Task:** Road-scene **semantic segmentation** on **Cityscapes** with a lightweight ViT (DeiT-Tiny) + deployable **ONNX**.  
 **Status:** Implementation complete; training/eval done; ONNX + demo overlay & metrics committed.
-
+Dataset link: https://disk.360.yandex.ru/d/gONYDzRB7lf4-g
 ## Quick Reproduce
 
 ```powershell
