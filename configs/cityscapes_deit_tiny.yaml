@@ -4,7 +4,7 @@ dataset:
    num_classes: 19
 
 model:
-   # DeiT-Tiny backbone params (match your current ViT)
+   # DeiT-Tiny backbone params 
    patch: 16
    embed_dim: 192
    depth: 12
